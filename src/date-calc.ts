@@ -14,7 +14,7 @@ class LocalDate {
      * @return The number of days since Day 0.
      * For example, 0001-1-1 will have the return value of 1.
      */
-    public sinceDayZero(): number {
+    sinceDayZero(): number {
         let total: number = 0;
 
         // Count the number of days to the end of the previous year.
@@ -40,7 +40,25 @@ class LocalDate {
      * Check if the given year is a leap year.
      * @return True if the year is a leap year; false otherwise.
      */
-    public static isLeapYear(year: number): boolean {
+    static isLeapYear(year: number): boolean {
         return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    }
+}
+
+/**
+ * A class to represent an amount of date-based time.
+ */
+class Period {
+    constructor(
+        readonly startDate: LocalDate,
+        readonly endDate: LocalDate) {
+    }
+
+    /**
+     * Calculate the number of days between the start and the end dates.
+     * @return The number of days in between.
+     */
+    getDays(): number {
+        return this.endDate.sinceDayZero() - this.startDate.sinceDayZero();
     }
 }

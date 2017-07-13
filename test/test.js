@@ -15,3 +15,14 @@ describe("LocalDate", function() {
         expect(LocalDate.isLeapYear(2000)).toBe(true);
     });
 });
+
+describe("Period", function() {
+    it("can calculate the days between the start and the end dates.", function() {
+        expect(new Period(new LocalDate(1, 1, 1),
+            new LocalDate(1, 1, 2)).getDays()).toBe(1);
+        expect(new Period(new LocalDate(1, 1, 1),
+            new LocalDate(1, 3, 1)).getDays()).toBe(59);
+        expect(new Period(new LocalDate(2000, 1, 1),
+            new LocalDate(2001, 1, 1)).getDays()).toBe(366);
+    });
+})

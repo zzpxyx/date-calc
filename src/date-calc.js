@@ -39,3 +39,20 @@ var LocalDate = (function () {
     };
     return LocalDate;
 }());
+/**
+ * A class to represent an amount of date-based time.
+ */
+var Period = (function () {
+    function Period(startDate, endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    /**
+     * Calculate the number of days between the start and the end dates.
+     * @return The number of days in between.
+     */
+    Period.prototype.getDays = function () {
+        return this.endDate.sinceDayZero() - this.startDate.sinceDayZero();
+    };
+    return Period;
+}());
