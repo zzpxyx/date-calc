@@ -6,13 +6,13 @@
 function calc() {
     var str1 = document.getElementById("input1").value;
     var str2 = document.getElementById("input2").value;
-    document.getElementById("output").value = parseDate(str1) + " " + parseDate(str2);
+    var daysString = DateCalc.daysBetween(str1, str2);
+    var periodString = DateCalc.periodBetween(str1, str2);
+    document.getElementById("output").value =
+        daysString + " days (" + periodString + ")";
 }
 
 function parseDate(str) {
-    var date = new Date(str);
-    var year = date.getUTCFullYear();
-    var month = date.getUTCMonth() + 1;
-    var day = date.getUTCDate();
-    return year + "-" + month + "-" + day;
+    var localDate = LocalDate.parse(str);
+    return localDate.year + "-" + localDate.month + "-" + localDate.day;
 }
