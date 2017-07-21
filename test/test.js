@@ -14,15 +14,37 @@ describe("LocalDate", function() {
         expect(LocalDate.isLeapYear(1900)).toBe(false);
         expect(LocalDate.isLeapYear(2000)).toBe(true);
     });
+    it("can parse a string to get a LocalDate object.", function() {
+        expect(LocalDate.parse("2017-01-01") instanceof LocalDate).toBe(true);
+        expect(LocalDate.parse("2017/01/01") instanceof LocalDate).toBe(true);
+        expect(LocalDate.parse("01/01/2017") instanceof LocalDate).toBe(true);
+        expect(LocalDate.parse("Jan 1, 2017") instanceof LocalDate).toBe(true);
+    })
 });
 
 describe("Period", function() {
-    it("can calculate the days between the start and the end dates.", function() {
+    it("can calculate the days between the start and the end dates.",
+        function() {
+            expect(new Period(new LocalDate(1, 1, 1),
+                new LocalDate(1, 1, 2)).getDays()).toBe(1);
+            expect(new Period(new LocalDate(1, 1, 1),
+                new LocalDate(1, 3, 1)).getDays()).toBe(59);
+            expect(new Period(new LocalDate(2000, 1, 1),
+                new LocalDate(2001, 1, 1)).getDays()).toBe(366);
+        });
+    it("can be shown in a string representation.", function() {
         expect(new Period(new LocalDate(1, 1, 1),
-            new LocalDate(1, 1, 2)).getDays()).toBe(1);
+            new LocalDate(1, 1, 2)).toString()).toBe("1 day");
         expect(new Period(new LocalDate(1, 1, 1),
-            new LocalDate(1, 3, 1)).getDays()).toBe(59);
+            new LocalDate(1, 3, 1)).toString()).toBe("2 months");
         expect(new Period(new LocalDate(2000, 1, 1),
-            new LocalDate(2001, 1, 1)).getDays()).toBe(366);
+            new LocalDate(2001, 1, 1)).toString()).toBe("1 year");
+        expect(new Period(new LocalDate(2000, 1, 1),
+            new LocalDate(2001, 1, 2)).toString()).toBe("1 year 1 day");
+        expect(new Period(new LocalDate(2000, 1, 1),
+            new LocalDate(2001, 2, 2)).toString()).toBe("1 year 1 month 1 day");
+        expect(new Period(new LocalDate(2000, 1, 1),
+            new LocalDate(2002, 3, 3)).toString()).toBe(
+            "2 years 2 months 2 days");
     });
 })
