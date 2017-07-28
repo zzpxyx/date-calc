@@ -48,3 +48,18 @@ describe("Period", function() {
             "2 years 2 months 2 days");
     });
 })
+
+describe("DateCalc", function() {
+    it("can calculate the days between the start and the end dates.",
+        function() {
+            expect(DateCalc.daysBetween("0001-01-01", "0001-01-02")).toBe(1);
+            expect(DateCalc.daysBetween("2000-01-01", "2001-03-02")).toBe(426);
+        });
+    it("can calculate the period between the start and the end dates.",
+        function() {
+            expect(DateCalc.periodBetween("0001-01-01",
+                "0001-01-02")).toBe("1 day");
+            expect(DateCalc.periodBetween("2000-01-01",
+                "2001-03-02")).toBe("1 year 2 months 1 day");
+        });
+})
