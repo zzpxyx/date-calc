@@ -1,6 +1,7 @@
 (function init() {
     document.getElementById("input1").addEventListener("input", calc);
     document.getElementById("input2").addEventListener("input", calc);
+    calc();
 })();
 
 function calc() {
