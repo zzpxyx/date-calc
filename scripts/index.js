@@ -7,10 +7,20 @@
 function calc() {
     var str1 = document.getElementById("input1").value;
     var str2 = document.getElementById("input2").value;
-    var daysString = DateCalc.daysBetween(str1, str2);
-    var periodString = DateCalc.periodBetween(str1, str2);
-    document.getElementById("output").value =
-        daysString + " days (" + periodString + ")";
+    var days = DateCalc.daysBetween(str1, str2);
+    if (isNaN(days)) {
+        document.getElementById("output").value = "Please enter valid inputs.";
+    } else {
+        var daysString;
+        if (days === 1) {
+            daysString = days + " day";
+        } else {
+            daysString = days + " days";
+        }
+        var periodString = DateCalc.periodBetween(str1, str2);
+        document.getElementById("output").value =
+            daysString + " (" + periodString + ")";
+    }
 }
 
 function parseDate(str) {
