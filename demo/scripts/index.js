@@ -1,6 +1,15 @@
 (function init() {
-    document.getElementById("input1").addEventListener("input", calc);
-    document.getElementById("input2").addEventListener("input", calc);
+    var input1 = document.getElementById("input1");
+    var input2 = document.getElementById("input2");
+    var searchParams = new URLSearchParams(window.location.search);
+    if (input1.value === "") {
+        input1.value = searchParams.get("startDate");
+    }
+    if (input2.value === "") {
+        input2.value = searchParams.get("endDate");
+    }
+    input1.addEventListener("input", calc);
+    input2.addEventListener("input", calc);
     calc();
 })();
 
