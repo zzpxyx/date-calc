@@ -3,34 +3,15 @@
  */
 class DateCalc {
     /**
-     * Calculate the number of days between the start and the end dates.
-     * @param startDateString The string for the start date.
-     * @param endDateString The string for the end date.
-     * @return The number of days in between.
-     * For example, given 2017-01-01 and 2017-01-02, the return value will be 1.
-     */
-    static daysBetween(startDateString: string, endDateString: string): number {
-        let startDate: LocalDate = LocalDate.parse(startDateString);
-        let endDate: LocalDate = LocalDate.parse(endDateString);
-        let period: Period = new Period(startDate, endDate);
-        return period.getDays();
-    }
-
-    /**
      * Calculate the period between the start and the end dates.
-     * @param startDateString The string for the start date.
-     * @param endDateString The string for the end date.
-     * @return The string describing the period.
-     * For example, given 2017-01-01 and 2018-03-04, the return value will be
-     * 1 year 2 months 3days.
+     * @param dateString1 A string representing a date.
+     * @param dateString2 A string representing another date.
+     * @return A Period object for the period between the two dates.
      */
-    static periodBetween(
-        startDateString: string,
-        endDateString: string): string {
-        let startDate: LocalDate = LocalDate.parse(startDateString);
-        let endDate: LocalDate = LocalDate.parse(endDateString);
-        let period: Period = new Period(startDate, endDate);
-        return period.toString();
+    static between(dateString1: string, dateString2: string): Period {
+        let date1: LocalDate = LocalDate.parse(dateString1);
+        let date2: LocalDate = LocalDate.parse(dateString2);
+        return new Period(date1, date2);
     }
 }
 
@@ -42,6 +23,28 @@ class LocalDate {
         readonly year: number,
         readonly month: number,
         readonly day: number) {
+    }
+
+    /**
+     * Check if the given year is a leap year.
+     * @param year The given year.
+     * @return True if the year is a leap year; false otherwise.
+     */
+    static isLeapYear(year: number): boolean {
+        return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    }
+
+    /**
+     * Construct a LocalDate object by parsing a date string.
+     * @param dateString The given date string.
+     * @return The constructed LocalDate object.
+     */
+    static parse(dateString: string): LocalDate {
+        let date: Date = new Date(dateString);
+        let year: number = date.getUTCFullYear();
+        let month: number = date.getUTCMonth() + 1;
+        let day: number = date.getUTCDate();
+        return new LocalDate(year, month, day);
     }
 
     /**
@@ -73,25 +76,13 @@ class LocalDate {
     }
 
     /**
-     * Check if the given year is a leap year.
-     * @param year The given year.
-     * @return True if the year is a leap year; false otherwise.
+     * Get the string representation of the LocalDate object.
+     * Note that the returned string will have the following format:
+     *   yyyy-mm-dd
+     * @return The string representation.
      */
-    static isLeapYear(year: number): boolean {
-        return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
-    }
-
-    /**
-     * Construct a LocalDate object by parsing a date string.
-     * @param dateString The given date string.
-     * @return The constructed LocalDate object.
-     */
-    static parse(dateString: string): LocalDate {
-        let date: Date = new Date(dateString);
-        let year: number = date.getUTCFullYear();
-        let month: number = date.getUTCMonth() + 1;
-        let day: number = date.getUTCDate();
-        return new LocalDate(year, month, day);
+    toString(): string {
+        return this.year + "-" + this.month + "-" + this.day;
     }
 }
 
@@ -99,9 +90,18 @@ class LocalDate {
  * A class to represent an amount of date-based time.
  */
 class Period {
+    /**
+     * The two dates will be swapped if the start date is later than the end date.
+     */
     constructor(
         readonly startDate: LocalDate,
         readonly endDate: LocalDate) {
+        if (startDate.sinceDayZero() > endDate.sinceDayZero()) {
+            let tmpDate: LocalDate = this.startDate;
+            this.startDate = this.endDate;
+            this.endDate = tmpDate;
+        }
+
     }
 
     /**
@@ -113,10 +113,10 @@ class Period {
     }
 
     /**
-     * Get the string representation of the Period object.
-     * @return The string representation.
+     * Calculate the years, months, and days between the start and end dates.
+     * @return An array with the number of years, months, and days.
      */
-    toString(): string {
+    getYearsMonthsDays(): number[] {
         let years: number = this.endDate.year - this.startDate.year;
         let months: number = this.endDate.month - this.startDate.month;
         let days: number = this.endDate.day - this.startDate.day;
@@ -136,9 +136,18 @@ class Period {
             months += 12;
         }
 
-        // Format the return string.
+        return [years, months, days];
+    }
+
+    /**
+     * Get the string representation of the Period object.
+     * Note that the returned string will have the following format:
+     *   3 years 2 months 1 day
+     * @return The string representation.
+     */
+    toString(): string {
         let ret: string = "";
-        let values: number[] = [years, months, days];
+        let values: number[] = this.getYearsMonthsDays();
         let units: string[] = ["year", "month", "day"];
         for (let i: number = 0; i < 3; i++) {
             if (values[i] > 0) {
@@ -151,7 +160,6 @@ class Period {
                 }
             }
         }
-
         return ret;
     }
 }

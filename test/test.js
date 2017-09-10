@@ -32,6 +32,13 @@ describe("Period", function() {
             expect(new Period(new LocalDate(2000, 1, 1),
                 new LocalDate(2001, 1, 1)).getDays()).toBe(366);
         });
+    it("can calculate the years, months, and days between two dates.",
+        function() {
+            expect(new Period(new LocalDate(1, 1, 1),
+                new LocalDate(2, 3, 4)).getYearsMonthsDays()).toEqual([1, 2, 3]);
+            expect(new Period(new LocalDate(1, 5, 9),
+                new LocalDate(2, 3, 4)).getYearsMonthsDays()).toEqual([0, 9, 26]);
+        })
     it("can be shown in a string representation.", function() {
         expect(new Period(new LocalDate(1, 1, 1),
             new LocalDate(1, 1, 2)).toString()).toBe("1 day");
@@ -46,20 +53,17 @@ describe("Period", function() {
         expect(new Period(new LocalDate(2000, 1, 1),
             new LocalDate(2002, 3, 3)).toString()).toBe(
             "2 years 2 months 2 days");
+        expect(new Period(new LocalDate(1, 5, 9),
+            new LocalDate(2, 3, 4)).toString()).toBe("9 months 26 days");
     });
 })
 
 describe("DateCalc", function() {
-    it("can calculate the days between the start and the end dates.",
-        function() {
-            expect(DateCalc.daysBetween("0001-01-01", "0001-01-02")).toBe(1);
-            expect(DateCalc.daysBetween("2000-01-01", "2001-03-02")).toBe(426);
-        });
     it("can calculate the period between the start and the end dates.",
         function() {
-            expect(DateCalc.periodBetween("0001-01-01",
-                "0001-01-02")).toBe("1 day");
-            expect(DateCalc.periodBetween("2000-01-01",
-                "2001-03-02")).toBe("1 year 2 months 1 day");
+            expect(DateCalc.between("0001-01-01",
+                "0001-01-02").toString()).toBe("1 day");
+            expect(DateCalc.between("2000-01-01",
+                "2001-03-02").toString()).toBe("1 year 2 months 1 day");
         });
 })
