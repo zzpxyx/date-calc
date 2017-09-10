@@ -16,8 +16,10 @@
 function calc() {
     var str1 = document.getElementById("input1").value;
     var str2 = document.getElementById("input2").value;
-    var days = DateCalc.daysBetween(str1, str2);
+    var period = DateCalc.between(str1, str2);
+    var days = period.getDays();
     if (isNaN(days)) {
+        document.getElementById("prompt").innerHTML = "Error:";
         document.getElementById("output").value = "Please enter valid inputs.";
     } else {
         var daysString;
@@ -26,13 +28,16 @@ function calc() {
         } else {
             daysString = days + " days";
         }
-        var periodString = DateCalc.periodBetween(str1, str2);
-        document.getElementById("output").value =
-            daysString + " (" + periodString + ")";
+        var periodString = period.toString();
+        var resultString;
+        if (daysString === periodString) {
+            resultString = daysString;
+        } else {
+            resultString = daysString + " (" + periodString + ")";
+        }
+        document.getElementById("prompt").innerHTML =
+            "Between " + period.startDate.toString() +
+            " and " + period.endDate.toString() + ":";
+        document.getElementById("output").value = resultString;
     }
-}
-
-function parseDate(str) {
-    var localDate = LocalDate.parse(str);
-    return localDate.year + "-" + localDate.month + "-" + localDate.day;
 }
