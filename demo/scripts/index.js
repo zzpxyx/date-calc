@@ -30,7 +30,7 @@ function calc() {
         }
         var periodString = period.toString();
         var resultString;
-        if (daysString === periodString) {
+        if (periodString === "" || daysString === periodString) {
             resultString = daysString;
         } else {
             resultString = daysString + " (" + periodString + ")";
