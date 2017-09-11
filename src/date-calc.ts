@@ -40,10 +40,15 @@ class LocalDate {
      * @return The constructed LocalDate object.
      */
     static parse(dateString: string): LocalDate {
-        let date: Date = new Date(dateString);
-        let year: number = date.getUTCFullYear();
-        let month: number = date.getUTCMonth() + 1;
-        let day: number = date.getUTCDate();
+        let date: Date;
+        if (dateString.toLowerCase() === "today") {
+            date = new Date();
+        } else {
+            date = new Date(dateString);
+        }
+        let year: number = date.getFullYear();
+        let month: number = date.getMonth() + 1;
+        let day: number = date.getDate();
         return new LocalDate(year, month, day);
     }
 

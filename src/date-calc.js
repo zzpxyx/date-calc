@@ -40,10 +40,16 @@ var LocalDate = /** @class */ (function () {
      * @return The constructed LocalDate object.
      */
     LocalDate.parse = function (dateString) {
-        var date = new Date(dateString);
-        var year = date.getUTCFullYear();
-        var month = date.getUTCMonth() + 1;
-        var day = date.getUTCDate();
+        var date;
+        if (dateString.toLowerCase() === "today") {
+            date = new Date();
+        }
+        else {
+            date = new Date(dateString);
+        }
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
         return new LocalDate(year, month, day);
     };
     /**
