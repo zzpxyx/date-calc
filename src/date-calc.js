@@ -47,6 +47,19 @@ var LocalDate = /** @class */ (function () {
         return new LocalDate(year, month, day);
     };
     /**
+     * Pad leading zeroes for the given value to the given length.
+     * @param value The given value.
+     * @param length The given length.
+     * @return A string containing the given value with padded leading zeroes.
+     */
+    LocalDate.padZero = function (value, length) {
+        var paddedValue = "" + value;
+        while (paddedValue.length < length) {
+            paddedValue = "0" + paddedValue;
+        }
+        return paddedValue;
+    };
+    /**
      * Count the number of days since the hypothetical Day 0.
      * Day 0 is the day before 0001-1-1.
      * @return The number of days since Day 0.
@@ -76,7 +89,9 @@ var LocalDate = /** @class */ (function () {
      * @return The string representation.
      */
     LocalDate.prototype.toString = function () {
-        return this.year + "-" + this.month + "-" + this.day;
+        return LocalDate.padZero(this.year, 4) + "-" +
+            LocalDate.padZero(this.month, 2) + "-" +
+            LocalDate.padZero(this.day, 2);
     };
     return LocalDate;
 }());
