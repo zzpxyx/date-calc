@@ -19,7 +19,7 @@ function calc() {
     var period = DateCalc.between(str1, str2);
     var days = period.getDays();
     if (isNaN(days)) {
-        document.getElementById("prompt").innerHTML = "Error:";
+        document.getElementById("prompt").innerHTML = "Info";
         document.getElementById("output").value = "Please enter valid inputs.";
     } else {
         var daysString;
@@ -37,7 +37,7 @@ function calc() {
         }
         document.getElementById("prompt").innerHTML =
             "Between " + period.startDate.toString() +
-            " and " + period.endDate.toString() + ":";
+            " and " + period.endDate.toString();
         document.getElementById("output").value = resultString;
     }
 }
