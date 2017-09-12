@@ -40,17 +40,30 @@ var LocalDate = /** @class */ (function () {
      * @return The constructed LocalDate object.
      */
     LocalDate.parse = function (dateString) {
+        var localDate;
         var date;
+        var year;
+        var month;
+        var day;
         if (dateString.toLowerCase() === "today") {
             date = new Date();
+            year = date.getFullYear();
+            month = date.getMonth() + 1;
+            day = date.getDate();
         }
         else {
-            date = new Date(dateString);
+            var datePieces = /^(\d{1,4})-(\d{1,2})-(\d{1,2})$/.exec(dateString);
+            year = +datePieces[1];
+            month = +datePieces[2];
+            day = +datePieces[3];
         }
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        return new LocalDate(year, month, day);
+        if (year === 0 || month === 0 || day === 0) {
+            localDate = null;
+        }
+        else {
+            localDate = new LocalDate(year, month, day);
+        }
+        return localDate;
     };
     /**
      * Pad leading zeroes for the given value to the given length.

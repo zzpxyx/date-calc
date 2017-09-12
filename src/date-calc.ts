@@ -40,16 +40,29 @@ class LocalDate {
      * @return The constructed LocalDate object.
      */
     static parse(dateString: string): LocalDate {
+        let localDate: LocalDate;
         let date: Date;
+        let year: number;
+        let month: number;
+        let day: number;
         if (dateString.toLowerCase() === "today") {
             date = new Date();
+            year = date.getFullYear();
+            month = date.getMonth() + 1;
+            day = date.getDate();
         } else {
-            date = new Date(dateString);
+            let datePieces: string[] =
+                /^(\d{1,4})-(\d{1,2})-(\d{1,2})$/.exec(dateString);
+            year = +datePieces[1];
+            month = +datePieces[2];
+            day = +datePieces[3];
         }
-        let year: number = date.getFullYear();
-        let month: number = date.getMonth() + 1;
-        let day: number = date.getDate();
-        return new LocalDate(year, month, day);
+        if (year === 0 || month === 0 || day === 0) {
+            localDate = null;
+        } else {
+            localDate = new LocalDate(year, month, day);
+        }
+        return localDate;
     }
 
     /**
