@@ -23,6 +23,9 @@ class LocalDate {
         readonly year: number,
         readonly month: number,
         readonly day: number) {
+        if (!LocalDate.validateDate(year, month, day)) {
+            throw new Error("Please check date format.");
+        }
     }
 
     /**
@@ -57,12 +60,7 @@ class LocalDate {
             month = +datePieces[2];
             day = +datePieces[3];
         }
-        if (year === 0 || month === 0 || day === 0) {
-            localDate = null;
-        } else {
-            localDate = new LocalDate(year, month, day);
-        }
-        return localDate;
+        return new LocalDate(year, month, day);
     }
 
     /**
@@ -77,6 +75,26 @@ class LocalDate {
             paddedValue = "0" + paddedValue;
         }
         return paddedValue;
+    }
+
+    /**
+     * Check if a given date is valid.
+     * @param year The year in the given date.
+     * @param month The month in the given date.
+     * @param day The day in the given date.
+     * @return true if valid; false, otherwise.
+     */
+    static validateDate(year: number, month: number, day: number): boolean {
+        let daysInMonth: number[] =
+            [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (LocalDate.isLeapYear(year)) {
+            daysInMonth[2] = 29;
+        }
+        if (year < 1 || month < 1 || month > 12 ||
+            day < 1 || day > daysInMonth[month]) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -130,12 +148,14 @@ class Period {
     constructor(
         readonly startDate: LocalDate,
         readonly endDate: LocalDate) {
+        if (startDate == null || endDate == null) {
+            throw new Error("Please check date format.");
+        }
         if (startDate.sinceDayZero() > endDate.sinceDayZero()) {
             let tmpDate: LocalDate = this.startDate;
             this.startDate = this.endDate;
             this.endDate = tmpDate;
         }
-
     }
 
     /**
