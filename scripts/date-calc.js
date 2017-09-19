@@ -25,6 +25,9 @@ var LocalDate = /** @class */ (function () {
         this.year = year;
         this.month = month;
         this.day = day;
+        if (!LocalDate.validateDate(year, month, day)) {
+            throw new Error("Please check date format.");
+        }
     }
     /**
      * Check if the given year is a leap year.
@@ -57,13 +60,7 @@ var LocalDate = /** @class */ (function () {
             month = +datePieces[2];
             day = +datePieces[3];
         }
-        if (year === 0 || month === 0 || day === 0) {
-            localDate = null;
-        }
-        else {
-            localDate = new LocalDate(year, month, day);
-        }
-        return localDate;
+        return new LocalDate(year, month, day);
     };
     /**
      * Pad leading zeroes for the given value to the given length.
@@ -77,6 +74,24 @@ var LocalDate = /** @class */ (function () {
             paddedValue = "0" + paddedValue;
         }
         return paddedValue;
+    };
+    /**
+     * Check if a given date is valid.
+     * @param year The year in the given date.
+     * @param month The month in the given date.
+     * @param day The day in the given date.
+     * @return true if valid; false, otherwise.
+     */
+    LocalDate.validateDate = function (year, month, day) {
+        var daysInMonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (LocalDate.isLeapYear(year)) {
+            daysInMonth[2] = 29;
+        }
+        if (year < 1 || month < 1 || month > 12 ||
+            day < 1 || day > daysInMonth[month]) {
+            return false;
+        }
+        return true;
     };
     /**
      * Count the number of days since the hypothetical Day 0.
@@ -124,6 +139,9 @@ var Period = /** @class */ (function () {
     function Period(startDate, endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
+        if (startDate == null || endDate == null) {
+            throw new Error("Please check date format.");
+        }
         if (startDate.sinceDayZero() > endDate.sinceDayZero()) {
             var tmpDate = this.startDate;
             this.startDate = this.endDate;
