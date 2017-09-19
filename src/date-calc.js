@@ -56,9 +56,11 @@ var LocalDate = /** @class */ (function () {
         }
         else {
             var datePieces = /^(\d{1,4})-(\d{1,2})-(\d{1,2})$/.exec(dateString);
-            year = +datePieces[1];
-            month = +datePieces[2];
-            day = +datePieces[3];
+            if (datePieces != null) {
+                year = +datePieces[1];
+                month = +datePieces[2];
+                day = +datePieces[3];
+            }
         }
         return new LocalDate(year, month, day);
     };
@@ -87,8 +89,9 @@ var LocalDate = /** @class */ (function () {
         if (LocalDate.isLeapYear(year)) {
             daysInMonth[2] = 29;
         }
-        if (year < 1 || month < 1 || month > 12 ||
-            day < 1 || day > daysInMonth[month]) {
+        if (!isFinite(year) || year < 1 ||
+            !isFinite(month) || month < 1 || month > 12 ||
+            !isFinite(day) || day < 1 || day > daysInMonth[month]) {
             return false;
         }
         return true;

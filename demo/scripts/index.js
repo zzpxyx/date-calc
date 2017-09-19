@@ -43,8 +43,7 @@ function calc() {
             document.getElementById("output").value = resultString;
         } catch (e) {
             document.getElementById("prompt").innerHTML = "Info";
-            document.getElementById("output").value =
-                "Please enter valid inputs.";
+            document.getElementById("output").value = e.message;
         }
     }
 }
