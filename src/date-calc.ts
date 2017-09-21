@@ -45,21 +45,40 @@ class LocalDate {
     static parse(dateString: string): LocalDate {
         let localDate: LocalDate;
         let date: Date;
-        let year: number;
-        let month: number;
-        let day: number;
+        let year: number = 0;
+        let month: number = 0;
+        let day: number = 0;
         if (dateString.toLowerCase() === "today") {
             date = new Date();
             year = date.getFullYear();
             month = date.getMonth() + 1;
             day = date.getDate();
         } else {
-            let datePieces: string[] =
-                /^(\d{1,4})-(\d{1,2})-(\d{1,2})$/.exec(dateString);
-            if (datePieces != null) {
-                year = +datePieces[1];
-                month = +datePieces[2];
-                day = +datePieces[3];
+            let datePieces: string[];
+            if (dateString.indexOf("-") > 0) {
+                // Parse date like 2017-01-20.
+                datePieces = /^(\d{1,4})-(\d{1,2})-(\d{1,2})$/.exec(dateString);
+                if (datePieces != null) {
+                    year = +datePieces[1];
+                    month = +datePieces[2];
+                    day = +datePieces[3];
+                }
+            } else if (dateString.indexOf("/") > 0) {
+                // Parse date like 01/20/2017.
+                datePieces = /^(\d{1,2})\/(\d{1,2})\/(\d{1,4})$/.exec(dateString);
+                if (datePieces != null) {
+                    year = +datePieces[3];
+                    month = +datePieces[1];
+                    day = +datePieces[2];
+                }
+            } else if (dateString.indexOf(" ") > 0) {
+                // Parse date like Jan 20 2017 or January 20 2017.
+                datePieces = /^(.+)\s(\d{1,2})\s(\d{1,4})$/.exec(dateString);
+                if (datePieces != null) {
+                    year = +datePieces[3];
+                    month = LocalDate.monthStringToNumber(datePieces[1]);
+                    day = +datePieces[2];
+                }
             }
         }
         return new LocalDate(year, month, day);
@@ -84,7 +103,7 @@ class LocalDate {
      * @param year The year in the given date.
      * @param month The month in the given date.
      * @param day The day in the given date.
-     * @return true if valid; false, otherwise.
+     * @return True if valid; false, otherwise.
      */
     static validateDate(year: number, month: number, day: number): boolean {
         let daysInMonth: number[] =
@@ -98,6 +117,37 @@ class LocalDate {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Convert a month name or abbreviation to the corresponding number.
+     * @param monthString The month name or abbreviation.
+     * @return The month number. -1 if monthString is not valid.
+     */
+    static monthStringToNumber(monthString: string): number {
+        let month: number = -1;
+
+        // Remove trailing period for month abbreviation.
+        if (monthString[monthString.length - 1] === ".") {
+            monthString = monthString.slice(0, -1);
+        }
+
+        if (monthString.length > 2) {
+            let monthAbbrNames: string[] =
+                ["", "jan", "feb", "mar", "apr", "may", "jun",
+                    "jul", "aug", "sep", "oct", "nov", "dec"];
+            let monthNames: string[] =
+                ["", "january", "february", "march",
+                    "april", "may", "june",
+                    "july", "august", "september",
+                    "october", "november", "december"];
+            monthString = monthString.toLowerCase();
+            month = monthAbbrNames.indexOf(monthString);
+            if (month === -1) {
+                month = monthNames.indexOf(monthString);
+            }
+        }
+        return month;
     }
 
     /**
