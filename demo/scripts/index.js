@@ -3,10 +3,10 @@
     var input2 = document.getElementById("input2");
     var searchParams = new URLSearchParams(window.location.search);
     if (input1.value === "") {
-        input1.value = searchParams.get("startDate");
+        input1.value = searchParams.get("p1");
     }
     if (input2.value === "") {
-        input2.value = searchParams.get("endDate");
+        input2.value = searchParams.get("p2");
     }
     input1.addEventListener("input", calc);
     input2.addEventListener("input", calc);
