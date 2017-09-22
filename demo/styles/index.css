@@ -1,13 +1,16 @@
 html,
-header,
 body,
+header,
+footer,
+hr,
 label,
 div,
 p,
 ul,
 li,
 input,
-output {
+output,
+a {
     margin: 0;
     border: 0;
     padding: 0:
@@ -19,6 +22,28 @@ body {
     background: #FAFAFA;
     font-family: sans-serif;
     color: #222;
+}
+
+header {
+    margin: 30px 0px;
+    font-size: 36px;
+    color: #888;
+}
+
+header a {
+    text-decoration: none;
+}
+
+footer {
+    margin: 30px 0px;
+    font-size: 16px;
+    color: #888;
+}
+
+hr {
+    height: 1px;
+    margin: 30px 0px;
+    background-color: #AAA;
 }
 
 label {
@@ -61,11 +86,18 @@ output {
     color: #222;
 }
 
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: inherit;
+}
+
 .input-label {
     display: flex;
     align-items: center;
     height: 24px;
-    margin: 60px 0 12px 0;
+    margin: 30px 0 12px 0;
 }
 
 .help-bubble {
@@ -115,5 +147,5 @@ output {
 #prompt {
     display: block;
     height: 24px;
-    margin: 60px 0 12px 0;
+    margin: 30px 0 12px 0;
 }
