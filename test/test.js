@@ -32,6 +32,11 @@ describe("LocalDate", function() {
         expect(LocalDate.parse("1-2-2").sinceDayZero()).toBe(33);
         expect(LocalDate.parse("4-3-3").sinceDayZero()).toBe(1158);
     });
+    it("can print out string representation.", function() {
+        expect(LocalDate.parse("2018-5-6").toString()).toBe("2018-05-06");
+        expect(LocalDate.parse("03/04/2018").toString()).toBe("2018-03-04");
+        expect(LocalDate.parse("Feb. 1 2018").toString()).toBe("2018-02-01");
+    });
 })
 
 describe("Period", function() {
