@@ -226,6 +226,23 @@ class Period {
         readonly days: number) {
     }
 
+    public static parse(periodString: string): Period {
+        let years: number;
+        let months: number;
+        let days: number;
+        let periodPieces: string[];
+        periodPieces = new RegExp("^" +
+            "(\\d*)\\s*(y|year|years)\\s*" +
+            "(\\d*)\\s*(m|month|months)\\s*" +
+            "(\\d*)\\s*(d|day|days)$").exec(periodString);
+        if (periodPieces) {
+            years = +periodPieces[1];
+            months = +periodPieces[3];
+            days = +periodPieces[5];
+        }
+        return new Period(years, months, days);
+    }
+
     public static between(localDate1: LocalDate, localDate2: LocalDate): Period {
         if (localDate1.daysUntil(localDate2) < 0) {
             [localDate1, localDate2] = [localDate2, localDate1];

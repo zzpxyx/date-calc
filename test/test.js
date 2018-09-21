@@ -40,6 +40,16 @@ describe("LocalDate", function() {
 })
 
 describe("Period", function() {
+    it("can parse a string to get a Period object.", function() {
+        expect(Period.parse("1 year 2 months 3 days").toString())
+            .toBe("1 year 2 months 3 days");
+        expect(Period.parse("1year2month3day").toString())
+            .toBe("1 year 2 months 3 days");
+        expect(Period.parse("1 y2m 3 d").toString())
+            .toBe("1 year 2 months 3 days");
+        expect(Period.parse("1  year2 month3d").toString())
+            .toBe("1 year 2 months 3 days");
+    })
     it("can calculate the days between the start and the end dates.",
         function() {
             expect(new Period(new LocalDate(1, 1, 1),
