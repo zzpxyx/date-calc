@@ -46,7 +46,7 @@ class DateCalc {
  * A class to represent a date without the time zone.
  */
 class LocalDate {
-    private constructor(
+    constructor(
         readonly year: number,
         readonly month: number,
         readonly day: number) {
@@ -133,6 +133,49 @@ class LocalDate {
         return total;
     }
 
+    public addPeriod(period: Period): LocalDate {
+        let year: number = this.year + period.years;
+        let month: number = this.month + period.months;
+        let day: number = this.day + period.days;
+
+        return null;
+    }
+
+    public normalize(): LocalDate {
+        let year: number = this.year || 0;
+        let month: number = this.month || 0;
+        let day: number = this.day || 1;
+        let daysInMonth: number;
+
+        // Normalize year and month.
+        year += Math.floor(month / 12);
+        month %= 12;
+        if (month < 0) {
+            month += 12;
+        }
+
+        // Normalize day.
+        while (day < 0) {
+            day += LocalDate.getDaysInMonth(year, month);
+            month--;
+            if (month < 1) {
+                year--;
+                month += 12;
+            }
+        }
+        daysInMonth = LocalDate.getDaysInMonth(year, month);
+        while (day > daysInMonth) {
+            day -= daysInMonth;
+            month++;
+            if (month > 12) {
+                year++;
+                month -= 12;
+            }
+            daysInMonth = LocalDate.getDaysInMonth(year, month);
+        }
+        return new LocalDate(year, month, day);
+    }
+
     /**
      * Get the string representation of the LocalDate object.
      * Note that the returned string will have the following format:
@@ -214,22 +257,32 @@ class LocalDate {
         }
         return month;
     }
+
+    // year and month must be valid and normalized.
+    private static getDaysInMonth(year: number, month: number): number {
+        let daysInMonth: number[] =
+            [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (Utils.isLeapYear(year)) {
+            daysInMonth[2] = 29;
+        }
+        return daysInMonth[month];
+    }
 }
 
 /**
  * A class to represent an amount of date-based time.
  */
 class Period {
-    private constructor(
+    constructor(
         readonly years: number,
         readonly months: number,
         readonly days: number) {
     }
 
     public static parse(periodString: string): Period {
-        let years: number;
-        let months: number;
-        let days: number;
+        let years: number = 0;
+        let months: number = 0;
+        let days: number = 0;
         let periodPieces: string[];
         periodPieces = new RegExp("^" +
             "(\\d*)\\s*(y|year|years)\\s*" +
