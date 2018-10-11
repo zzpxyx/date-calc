@@ -20,24 +20,41 @@ describe("LocalDate", function() {
         expect(LocalDate.parse("today") instanceof LocalDate).toBe(true);
     });
     it("can calculate days until another date.", function() {
-        expect(LocalDate.parse("1-1-1").daysUntil(LocalDate.parse("1-1-2")))
-            .toBe(1);
-        expect(LocalDate.parse("1-1-1").daysUntil(LocalDate.parse("1-2-2")))
-            .toBe(32);
-        expect(LocalDate.parse("1-1-1").daysUntil(LocalDate.parse("4-3-3")))
+        expect(new LocalDate(1, 1, 1).daysUntil(new LocalDate(1, 1, 2))).toBe(1);
+        expect(new LocalDate(1, 1, 1).daysUntil(new LocalDate(1, 2, 2))).toBe(32);
+        expect(new LocalDate(1, 1, 1).daysUntil(new LocalDate(4, 3, 3)))
             .toBe(1157);
-        expect(LocalDate.parse("1-1-3").daysUntil(LocalDate.parse("1-1-2")))
-            .toBe(-1);
+        expect(new LocalDate(1, 1, 3).daysUntil(new LocalDate(1, 1, 2))).toBe(-1);
     });
-    it("can calculate days since hypothetical Day 0.", function() {
-        expect(LocalDate.parse("1-1-1").sinceDayZero()).toBe(1);
-        expect(LocalDate.parse("1-2-2").sinceDayZero()).toBe(33);
-        expect(LocalDate.parse("4-3-3").sinceDayZero()).toBe(1158);
+    it("can calculate the period until another date.", function() {
+        expect(new LocalDate(1, 1, 1).periodUntil(new LocalDate(1, 1, 2))
+            .toString()).toBe("1 day");
+        expect((new LocalDate(1, 1, 1)).periodUntil(new LocalDate(1, 3, 1))
+            .toString()).toBe("2 months");
+        expect((new LocalDate(2000, 1, 1)).periodUntil(new LocalDate(2001, 1, 1))
+            .toString()).toBe("1 year");
+        expect((new LocalDate(1, 1, 1)).periodUntil(new LocalDate(2, 3, 4))
+            .toString()).toBe("1 year 2 months 3 days");
+        expect((new LocalDate(1, 1, 3)).periodUntil(new LocalDate(1, 1, 2))
+            .toString()).toBe("1 day");
+    });
+    it("can calculate the date after adding a period.", function() {
+        expect(new LocalDate(1, 1, 1).addPeriod(new Period(1, 1, 1)).toString())
+            .toBe("0002-02-02");
+        expect(new LocalDate(1, 1, 1).addPeriod(new Period(1, 11, 31)).toString())
+            .toBe("0003-01-01");
+        expect(new LocalDate(1, 1, 1).addPeriod(new Period(1, 12, 31)).toString())
+            .toBe("0003-02-01");
+        expect(new LocalDate(1, 1, 1).addPeriod(new Period(0, 0, 365)).toString())
+            .toBe("0002-01-01");
+        expect(new LocalDate(4, 1, 1).addPeriod(new Period(0, 0, 365)).toString())
+            .toBe("0004-12-31");
     });
     it("can print out a string representation.", function() {
-        expect(LocalDate.parse("2018-5-6").toString()).toBe("2018-05-06");
-        expect(LocalDate.parse("03/04/2018").toString()).toBe("2018-03-04");
-        expect(LocalDate.parse("Feb. 1 2018").toString()).toBe("2018-02-01");
+        expect(new LocalDate(2018, 10, 6).toString()).toBe("2018-10-06");
+        expect(new LocalDate(2018, 3, 14).toString()).toBe("2018-03-14");
+        expect(new LocalDate(2018, 1, 2).toString()).toBe("2018-01-02");
+        expect(new LocalDate(1, 1, 2).toString()).toBe("0001-01-02");
     });
 })
 
@@ -52,20 +69,6 @@ describe("Period", function() {
         expect(Period.parse("1  year2 month3d").toString())
             .toBe("1 year 2 months 3 days");
     })
-    it("can calculate the period between the start and the end dates.",
-        function() {
-            expect(Period.between(new LocalDate(1, 1, 1),
-                new LocalDate(1, 1, 2)).toString()).toBe("1 day");
-            expect(Period.between(new LocalDate(1, 1, 1),
-                new LocalDate(1, 3, 1)).toString()).toBe("2 months");
-            expect(Period.between(new LocalDate(2000, 1, 1),
-                new LocalDate(2001, 1, 1)).toString()).toBe("1 year");
-            expect(Period.between(new LocalDate(1, 1, 1), new LocalDate(2, 3, 4))
-                .toString()).toBe("1 year 2 months 3 days");
-            expect(Period.between(new LocalDate(1, 1, 3),
-                new LocalDate(1, 1, 2)).toString()).toBe("1 day");
-        }
-    );
     it("can print out a string representation.", function() {
         expect(new Period(0, 0, 1).toString()).toBe("1 day");
         expect(new Period(0, 2, 1).toString()).toBe("2 months 1 day");
@@ -79,14 +82,6 @@ describe("Period", function() {
 })
 
 describe("Utils", function() {
-    it("can check if a given year is a leap year.", function() {
-        expect(Utils.isLeapYear(1)).toBe(false);
-        expect(Utils.isLeapYear(4)).toBe(true);
-        expect(Utils.isLeapYear(100)).toBe(false);
-        expect(Utils.isLeapYear(400)).toBe(true);
-        expect(Utils.isLeapYear(1900)).toBe(false);
-        expect(Utils.isLeapYear(2000)).toBe(true);
-    });
     it("can make simple plural form based on the count.", function() {
         expect(Utils.pluralize(0, "year")).toBe("years");
         expect(Utils.pluralize(1, "month")).toBe("month");
