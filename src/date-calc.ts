@@ -3,15 +3,18 @@
  */
 class DateCalc {
     /**
-     * Calculate the period between the start and the end dates.
-     * @param dateString1 A string representing a date.
-     * @param dateString2 A string representing another date.
-     * @return A Period object for the period between the two dates.
+     * Calculate the date or the period according to the inputs.
+     * At least one of the inputs must be a valid date.
+     * @param dateString1 A string representing a date or a period.
+     * @param dateString2 A string representing a date or a period.
+     * @return A string representing the calculated date or period.
      */
     public static calculate(input1: string, input2: string): string {
         let localDate1: LocalDate;
         let localDate2: LocalDate;
         let validationScore: number = 0;
+        input1 = input1.trim();
+        input2 = input2.trim();
         localDate1 = LocalDate.parse(input1);
         localDate2 = LocalDate.parse(input2);
         validationScore += localDate1 ? 1 : 0;
@@ -23,20 +26,26 @@ class DateCalc {
                 let periodString = localDate1.periodUntil(localDate2).toString();
                 return daysString === periodString ?
                     daysString : daysString + " (" + periodString + ")";
-            //case [true, false]:
-            //    if (Period.tryParse(input2, period)) {
-            //        return localDate1.addPeriod(period).toString();
-            //    } else {
-            //        throw new Error("Second input is invalid.");
-            //    }
-            //case [false, true]:
-            //    if (Period.tryParse(input1, period)) {
-            //        return localDate2.addPeriod(period).toString();
-            //    } else {
-            //        throw new Error("First input is invalid.");
-            //    }
-            //case [false, false]:
-            //    throw new Error("Either or both inputs are invalid.");
+            case 2:
+            case 1:
+                let localDate: LocalDate;
+                let period: Period;
+                if (validationScore === 2) {
+                    localDate = localDate2;
+                    period = Period.parse(input1);
+                    if (!period) {
+                        throw new Error("The first input is invalid.");
+                    }
+                } else {
+                    localDate = localDate1;
+                    period = Period.parse(input2);
+                    if (!period) {
+                        throw new Error("The second input is invalid.");
+                    }
+                }
+                return localDate.addPeriod(period).toString();
+            case 0:
+                throw new Error("At least one input must be a valid date.");
         }
     }
 }
@@ -54,7 +63,8 @@ class LocalDate {
     /**
      * Construct a LocalDate object by parsing a date string.
      * @param dateString The given date string.
-     * @return The constructed LocalDate object.
+     * @return The constructed LocalDate object;
+     *   null if the date string is invalid.
      */
     public static parse(dateString: string): LocalDate {
         let year: number = 0;
@@ -96,7 +106,7 @@ class LocalDate {
         if (LocalDate.validateDate(year, month, day)) {
             return new LocalDate(year, month, day);
         } else {
-            throw new Error("Invalid date or unsupported format.");
+            return null;
         }
     }
 
@@ -211,7 +221,7 @@ class LocalDate {
      * Count the number of days since the hypothetical Day 0.
      * Day 0 is the day before 0001-1-1.
      * @return The number of days since Day 0.
-     * For example, 0001-1-1 will have the return value of 1.
+     *   For example, 0001-1-1 will have the return value of 1.
      */
     private sinceDayZero(): number {
         let total: number = 0;
@@ -319,23 +329,26 @@ class Period {
     /**
      * Construct a Period object by parsing a period string.
      * @param periodString The given period string.
-     * @return The constructed Period object.
+     * @return The constructed Period object;
+     *   null if the period string is invalid.
      */
     public static parse(periodString: string): Period {
-        let years: number = 0;
-        let months: number = 0;
-        let days: number = 0;
+        let years: number;
+        let months: number;
+        let days: number;
         let periodPieces: string[];
         periodPieces = new RegExp("^" +
-            "(\\d*)\\s*(y|year|years)\\s*" +
-            "(\\d*)\\s*(m|month|months)\\s*" +
-            "(\\d*)\\s*(d|day|days)$").exec(periodString);
+            "((\\d*)\\s*(y|year|years))*\\s*" +
+            "((\\d*)\\s*(m|month|months))*\\s*" +
+            "((\\d*)\\s*(d|day|days))*$").exec(periodString);
         if (periodPieces) {
-            years = +periodPieces[1];
-            months = +periodPieces[3];
-            days = +periodPieces[5];
+            years = +periodPieces[2] | 0;
+            months = +periodPieces[5] | 0;
+            days = +periodPieces[8] | 0;
+            return new Period(years, months, days);
+        } else {
+            return null;
         }
-        return new Period(years, months, days);
     }
 
     /**
