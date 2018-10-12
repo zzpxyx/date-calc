@@ -5,10 +5,39 @@ describe("DateCalc", function() {
                 .toBe("1 day");
             expect(DateCalc.calculate("2000-01-01", "2001-03-02"))
                 .toBe("426 days (1 year 2 months 1 day)");
+            expect(DateCalc.calculate("2000-02-10", "2002-01-05"))
+                .toBe("695 days (1 year 10 months 26 days)");
             expect(DateCalc.calculate("today", "Today"))
                 .toBe("0 days");
         }
     );
+    it("can calculate the date after adding a given period to a given date.",
+        function() {
+            expect(DateCalc.calculate("0001-01-01", "1 day"))
+                .toBe("0001-01-02");
+            expect(DateCalc.calculate("2000-01-01", "426 days"))
+                .toBe("2001-03-02");
+            expect(DateCalc.calculate("2000-01-01", "1 year 2 months 1 day"))
+                .toBe("2001-03-02");
+            expect(DateCalc.calculate("2000-02-10", "695d"))
+                .toBe("2002-01-05");
+            expect(DateCalc.calculate("2000-02-10", "1y10m26d"))
+                .toBe("2002-01-05");
+            expect(DateCalc.calculate("2000-01-01", "24m31d"))
+                .toBe("2002-02-01");
+        }
+    );
+    it("can prompt input errors.", function() {
+        expect(function() {
+            DateCalc.calculate("0001-01-01", "abc");
+        }).toThrowError(Error, "The second input is invalid.")
+        expect(function() {
+            DateCalc.calculate("-1year", "2000-01-01");
+        }).toThrowError(Error, "The first input is invalid.")
+        expect(function() {
+            DateCalc.calculate("t", "T");
+        }).toThrowError(Error, "At least one input must be a valid date.")
+    });
 })
 
 describe("LocalDate", function() {
@@ -18,6 +47,7 @@ describe("LocalDate", function() {
         expect(LocalDate.parse("Jan 2 2017").toString()).toBe("2017-01-02");
         expect(LocalDate.parse("January 2 2017").toString()).toBe("2017-01-02");
         expect(LocalDate.parse("today") instanceof LocalDate).toBe(true);
+        expect(LocalDate.parse("2017-02-29")).toBe(null);
     });
     it("can calculate days until another date.", function() {
         expect(new LocalDate(1, 1, 1).daysUntil(new LocalDate(1, 1, 2))).toBe(1);
@@ -68,6 +98,7 @@ describe("Period", function() {
             .toBe("1 year 2 months 3 days");
         expect(Period.parse("1  year2 month3d").toString())
             .toBe("1 year 2 months 3 days");
+        expect(Period.parse("2weeks")).toBe(null);
     })
     it("can print out a string representation.", function() {
         expect(new Period(0, 0, 1).toString()).toBe("1 day");

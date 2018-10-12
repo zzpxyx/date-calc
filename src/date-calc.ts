@@ -4,7 +4,7 @@
 class DateCalc {
     /**
      * Calculate the date or the period according to the inputs.
-     * At least one of the inputs must be a valid date.
+     * Note that at least one of the inputs must be a valid date.
      * @param dateString1 A string representing a date or a period.
      * @param dateString2 A string representing a date or a period.
      * @return A string representing the calculated date or period.
