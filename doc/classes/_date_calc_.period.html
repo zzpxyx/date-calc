@@ -95,11 +95,18 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_date_calc_.period.html#days" class="tsd-kind-icon">days</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_date_calc_.period.html#months" class="tsd-kind-icon">months</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_date_calc_.period.html#years" class="tsd-kind-icon">years</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_date_calc_.period.html#getdays" class="tsd-kind-icon">get<wbr>Days</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_date_calc_.period.html#getyearsmonthsdays" class="tsd-kind-icon">get<wbr>Years<wbr>Months<wbr>Days</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_date_calc_.period.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_date_calc_.period.html#parse" class="tsd-kind-icon">parse</a></li>
 							</ul>
 						</section>
 					</div>
@@ -111,27 +118,25 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Period<span class="tsd-signature-symbol">(</span>startDate<span class="tsd-signature-symbol">: </span><a href="_date_calc_.localdate.html" class="tsd-signature-type">LocalDate</a>, endDate<span class="tsd-signature-symbol">: </span><a href="_date_calc_.localdate.html" class="tsd-signature-type">LocalDate</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_date_calc_.period.html" class="tsd-signature-type">Period</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Period<span class="tsd-signature-symbol">(</span>years<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, months<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, days<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_date_calc_.period.html" class="tsd-signature-type">Period</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in date-calc.ts:197</li>
+									<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L322">date-calc.ts:322</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The two dates will be swapped if the start date is later than the end date.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>startDate: <a href="_date_calc_.localdate.html" class="tsd-signature-type">LocalDate</a></h5>
+									<h5>years: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>endDate: <a href="_date_calc_.localdate.html" class="tsd-signature-type">LocalDate</a></h5>
+									<h5>months: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>days: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_date_calc_.period.html" class="tsd-signature-type">Period</a></h4>
@@ -140,53 +145,40 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="days" class="tsd-anchor"></a>
+					<h3>days</h3>
+					<div class="tsd-signature tsd-kind-icon">days<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L326">date-calc.ts:326</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="months" class="tsd-anchor"></a>
+					<h3>months</h3>
+					<div class="tsd-signature tsd-kind-icon">months<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L325">date-calc.ts:325</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="years" class="tsd-anchor"></a>
+					<h3>years</h3>
+					<div class="tsd-signature tsd-kind-icon">years<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L324">date-calc.ts:324</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-					<a name="getdays" class="tsd-anchor"></a>
-					<h3>get<wbr>Days</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Days<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in date-calc.ts:218</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Calculate the number of days between the start and the end dates.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-							<p>The number of days in between.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-					<a name="getyearsmonthsdays" class="tsd-anchor"></a>
-					<h3>get<wbr>Years<wbr>Months<wbr>Days</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Years<wbr>Months<wbr>Days<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in date-calc.ts:226</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Calculate the years, months, and days between the start and end dates.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
-							<p>An array with the number of years, months, and days.</p>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 					<a name="tostring" class="tsd-anchor"></a>
 					<h3>to<wbr>String</h3>
@@ -197,18 +189,52 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in date-calc.ts:255</li>
+									<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L361">date-calc.ts:361</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get the string representation of the Period object.
 										Note that the returned string will have the following format:
-									3 years 2 months 1 day</p>
+										y years m months d days
+									where the units are pluralized automatically.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 							<p>The string representation.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="parse" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> parse</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">(</span>periodString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_date_calc_.period.html" class="tsd-signature-type">Period</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L335">date-calc.ts:335</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Construct a Period object by parsing a period string.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>periodString: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The given period string.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_date_calc_.period.html" class="tsd-signature-type">Period</a></h4>
+							<p>The constructed Period object;
+							null if the period string is invalid.</p>
 						</li>
 					</ul>
 				</section>
@@ -241,19 +267,28 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_date_calc_.period.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_date_calc_.period.html#getdays" class="tsd-kind-icon">get<wbr>Days</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_date_calc_.period.html#days" class="tsd-kind-icon">days</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_date_calc_.period.html#getyearsmonthsdays" class="tsd-kind-icon">get<wbr>Years<wbr>Months<wbr>Days</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_date_calc_.period.html#months" class="tsd-kind-icon">months</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_date_calc_.period.html#years" class="tsd-kind-icon">years</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_date_calc_.period.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_date_calc_.period.html#parse" class="tsd-kind-icon">parse</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_date_calc_.utils.html" class="tsd-kind-icon">Utils</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

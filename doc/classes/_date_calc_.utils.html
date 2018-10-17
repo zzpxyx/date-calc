@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DateCalc | Date Calc</title>
+	<title>Utils | Date Calc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,10 @@
 					<a href="../modules/_date_calc_.html">&quot;date-calc&quot;</a>
 				</li>
 				<li>
-					<a href="_date_calc_.datecalc.html">DateCalc</a>
+					<a href="_date_calc_.utils.html">Utils</a>
 				</li>
 			</ul>
-			<h1>Class DateCalc</h1>
+			<h1>Class Utils</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A class for calculating dates and periods.</p>
+						<p>A class for shared miscellaneous utilities.</p>
 					</div>
 				</div>
 			</section>
@@ -80,7 +80,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">DateCalc</span>
+						<span class="target">Utils</span>
 					</li>
 				</ul>
 			</section>
@@ -91,7 +91,7 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_date_calc_.datecalc.html#calculate" class="tsd-kind-icon">calculate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_date_calc_.utils.html#pluralize" class="tsd-kind-icon">pluralize</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,35 +100,41 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="calculate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> calculate</h3>
+					<a name="pluralize" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> pluralize</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">calculate<span class="tsd-signature-symbol">(</span>input1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, input2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">pluralize<span class="tsd-signature-symbol">(</span>count<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, singular<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L12">date-calc.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/zzpxyx/date-calc/blob/9cee8f1/src/date-calc.ts#L384">date-calc.ts:384</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Calculate the date or the period according to the inputs.
-									Note that at least one of the inputs must be a valid date.</p>
+									<p>Get the singular or the plural form of a unit based on the count.
+									Note that this is naively adding &quot;s&quot; at the end of the unit when necessary.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>input1: <span class="tsd-signature-type">string</span></h5>
+									<h5>count: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The count.</p>
+									</div>
 								</li>
 								<li>
-									<h5>input2: <span class="tsd-signature-type">string</span></h5>
+									<h5>singular: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The singular form of the unit.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>A string representing the calculated date or period.</p>
+							<p>The proper form of the unit.</p>
 						</li>
 					</ul>
 				</section>
@@ -147,27 +153,27 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_date_calc_.datecalc.html" class="tsd-kind-icon">Date<wbr>Calc</a>
-						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_date_calc_.datecalc.html#calculate" class="tsd-kind-icon">calculate</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_date_calc_.localdate.html" class="tsd-kind-icon">Local<wbr>Date</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_date_calc_.period.html" class="tsd-kind-icon">Period</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_date_calc_.utils.html" class="tsd-kind-icon">Utils</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_date_calc_.utils.html#pluralize" class="tsd-kind-icon">pluralize</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 				</ul>
 			</nav>
 		</div>

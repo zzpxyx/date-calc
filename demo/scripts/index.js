@@ -16,30 +16,13 @@
 function calc() {
     var str1 = document.getElementById("input1").value;
     var str2 = document.getElementById("input2").value;
-    var days = NaN;
     if (str1 === "" || str2 === "") {
         document.getElementById("prompt").innerHTML = "Info";
-        document.getElementById("output").value = "Please enter two dates.";
+        document.getElementById("output").value = "Please enter two inputs.";
     } else {
         try {
-            var period = DateCalc.between(str1, str2);
-            var days = period.getDays();
-            var daysString;
-            if (days === 1) {
-                daysString = days + " day";
-            } else {
-                daysString = days + " days";
-            }
-            var periodString = period.toString();
-            var resultString;
-            if (periodString === "" || daysString === periodString) {
-                resultString = daysString;
-            } else {
-                resultString = daysString + " (" + periodString + ")";
-            }
-            document.getElementById("prompt").innerHTML =
-                "Between " + period.startDate.toString() +
-                " and " + period.endDate.toString();
+            var resultString = DateCalc.calculate(str1, str2);
+            document.getElementById("prompt").innerHTML = "Result";
             document.getElementById("output").value = resultString;
         } catch (e) {
             document.getElementById("prompt").innerHTML = "Info";
