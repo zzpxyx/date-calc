@@ -9,6 +9,12 @@ describe("DateCalc", function() {
                 .toBe("695 days (1 year 10 months 26 days)");
             expect(DateCalc.calculate("today", "Today"))
                 .toBe("0 days");
+            expect(DateCalc.calculate("2019-09-30","2019-10-01"))
+                .toBe("1 day");
+            expect(DateCalc.calculate("2019-12-31","2020-01-02"))
+                .toBe("2 days");
+            expect(DateCalc.calculate("2020-12-31","2021-01-03"))
+                .toBe("3 days");
         }
     );
     it("can calculate the date after adding a given period to a given date.",

@@ -137,14 +137,15 @@ var LocalDate = /** @class */ (function () {
         var years = endDate.year - startDate.year;
         var months = endDate.month - startDate.month;
         var days = endDate.day - startDate.day;
-        var daysInMonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        // Days in previous month, so possible values are 0 to 11.
+        var daysInPrevMonth = [31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30];
+        if (LocalDate.isLeapYear(endDate.year)) {
+            daysInPrevMonth[2]++;
+        }
         // Normalize the period.
         if (days < 0) {
             months--;
-            days += daysInMonth[endDate.month];
-            if (LocalDate.isLeapYear(endDate.year)) {
-                days++;
-            }
+            days += daysInPrevMonth[endDate.month - 1];
         }
         if (months < 0) {
             years--;

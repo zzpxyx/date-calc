@@ -132,16 +132,17 @@ class LocalDate {
         let years: number = endDate.year - startDate.year;
         let months: number = endDate.month - startDate.month;
         let days: number = endDate.day - startDate.day;
-        let daysInMonth: number[] =
-            [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        // Days in previous month, so possible values are 0 to 11.
+        let daysInPrevMonth: number[] =
+            [31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30];
+        if (LocalDate.isLeapYear(endDate.year)) {
+            daysInPrevMonth[2]++;
+        }
 
         // Normalize the period.
         if (days < 0) {
             months--;
-            days += daysInMonth[endDate.month];
-            if (LocalDate.isLeapYear(endDate.year)) {
-                days++;
-            }
+            days += daysInPrevMonth[endDate.month - 1];
         }
         if (months < 0) {
             years--;
